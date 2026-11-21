@@ -1,0 +1,24 @@
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta http-equiv="Content-Security-Policy" content="connect-src 'none'; form-action 'none'">
+  <title>Regel-Tests</title>
+  <link rel="stylesheet" href="css/app.css">
+</head>
+<body>
+  <header><h1>Regel-Tests <small>js/rules.js</small></h1></header>
+  <main><p id="summary"></p><ul id="results" class="issues"></ul></main>
+  <script src="js/rules.js"></script>
+  <script src="js/cockpit.js"></script>
+  <script src="js/patterns.js"></script>
+  <script src="js/tests.js"></script>
+  <script>
+    const res = Cockpit.runTests();
+    document.getElementById("summary").innerHTML = `<b>${res.passed} / ${res.total}</b> Tests bestanden`;
+    document.getElementById("results").innerHTML = res.results.map((r) =>
+      `<li>${r.ok ? "✓" : "✗"} ${r.name}${r.ok ? "" : ` — <code>${r.msg}</code>`}</li>`).join("");
+  </script>
+</body>
+</html>

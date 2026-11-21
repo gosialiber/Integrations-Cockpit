@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta http-equiv="Content-Security-Policy" content="connect-src 'none'; form-action 'none'">
+  <title>Testdaten-Generator</title>
+  <link rel="stylesheet" href="../css/app.css">
+</head>
+<body>
+  <header>
+    <h1>Testdaten-Generator <small>Integrations-Cockpit</small></h1>
+    <p class="privacy">Erzeugt <b>fiktive</b> Exporte (11 Excel-Dateien) und Situationsanalysen als Text – keine echten Personen.</p>
+  </header>
+  <main>
+    <h2>Einstellungen</h2>
+    <p>
+      <label>Haushalte <input id="hh" type="number" value="160" min="10" max="2000" step="10"></label>
+      &nbsp; <label>Seed <input id="seed" type="number" value="20261121"></label>
+      &nbsp; <button id="go" type="button">ZIP erzeugen</button>
+    </p>
+    <p id="out" class="muted"></p>
+  </main>
+  <script src="../lib/xlsx.full.min.js"></script>
+  <script src="../js/schema.js"></script>
+  <script src="generator.js"></script>
+  <script>
+    // Alle Dateien in ein ZIP packen (SheetJS CFB) und herunterladen.
+    document.getElementById("go").addEventListener("click", () => {
+      const G = Cockpit.generator;
+      const res = G.generate({ households: +document.getElementById("hh").value, seed: +document.getElementById("seed").value });
+      const zip = XLSX.CFB.utils.cfb_new();
+      for (const id in res.tables) {
+        const bytes = new Uint8Array(XLSX.write(G.toWorkbook(id, res.tables[id]), { type: "array", bookType: "xlsx" }));
+        XLSX.CFB.utils.cfb_add(zip, "testdata/" + G.fileName(id), bytes);
+      }
+      const enc = new TextEncoder();
+      for (const t of res.texts) XLSX.CFB.utils.cfb_add(zip, "testdata/situationsanalyse/" + t.name, enc.encode(t.text));
+      const blob = new Blob([XLSX.CFB.write(zip, { fileType: "zip", type: "array" })], { type: "application/zip" });
+      const a = Object.assign(document.createElement("a"), { href: URL.createObjectURL(blob), download: "testdata.zip" });
+      a.click();
+      document.getElementById("out").textContent = `${res.tables.klient.length} Personen, ${res.texts.length} Situationsanalysen → testdata.zip`;
+    });
+  </script>
+</body>
+</html>

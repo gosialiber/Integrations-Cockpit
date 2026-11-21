@@ -1,0 +1,17 @@
+# macOS
+.DS_Store
+
+# Echte Exporte des ASD nie ins Repository (nur synthetische Testdaten in testdata/)
+*.xlsx
+!templates/*.xlsx
+!testdata/*.xlsx
+exports/
+echte-daten/
+
+# Editor / temporär
+.vscode/
+*.tmp
+__pycache__/
+
+# Materialien der Challenge (Stadt Bern) – nicht veröffentlichen
+docs/
