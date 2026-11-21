@@ -9,15 +9,18 @@
   <link rel="stylesheet" href="css/app.css">
 </head>
 <body>
-  <header>
-    <div class="top">
-      <h1>Integrations-Cockpit <small id="subtitle"></small></h1>
+  <header class="appbar">
+    <div class="appbar-inner top">
+      <div class="brand">
+        <span class="logo" aria-hidden="true">IC</span>
+        <div><h1>Integrations-Cockpit</h1><div id="subtitle" class="sub"></div></div>
+      </div>
+      <span id="privacy" class="lockbadge"></span>
       <div id="lang" class="lang" role="group" aria-label="Sprache / Language">
         <button type="button" data-l="de">DE</button><button type="button" data-l="en">EN</button>
       </div>
     </div>
-    <p id="privacy" class="privacy"></p>
-    <nav id="tabs" class="tabs" role="tablist"></nav>
+    <nav id="tabs" class="appbar-inner tabs" role="tablist"></nav>
   </header>
 
   <main id="view"></main>

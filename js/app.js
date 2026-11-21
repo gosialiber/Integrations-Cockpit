@@ -26,9 +26,13 @@
   function renderShell() {
     const { $ } = C.util;
     $("#subtitle").textContent = t("appSubtitle");
-    $("#privacy").textContent = t("privacy");
+    // Datenschutz-Hinweis als kleines Schloss-Abzeichen; ausführlicher Text als Tooltip
+    const priv = $("#privacy");
+    priv.innerHTML = `<svg viewBox="0 0 16 16" aria-hidden="true"><path d="M4 7V5a4 4 0 1 1 8 0v2h1v8H3V7h1zm2 0h4V5a2 2 0 1 0-4 0v2z"/></svg>${t("privacyBadge")}`;
+    priv.title = t("privacy");
+    // Reiter: Klasse pro Reiter (Farbe der aktiven Linie), Punkt in Zielfarbe vor den Ziel-Reitern
     $("#tabs").innerHTML = TABS.map((id) =>
-      `<a href="#${id}" role="tab" aria-selected="${id === currentTab()}" class="${id === currentTab() ? "on" : ""}">${t("tab." + id)}</a>`).join("");
+      `<a href="#${id}" role="tab" aria-selected="${id === currentTab()}" class="tab-${id} ${id === currentTab() ? "on" : ""}">${/^ziel/.test(id) ? '<span class="tdot" aria-hidden="true"></span>' : ""}${t("tab." + id)}</a>`).join("");
     document.querySelectorAll("#lang button").forEach((b) => b.setAttribute("aria-pressed", b.dataset.l === C.i18n.getLang()));
   }
 
@@ -37,6 +41,7 @@
     renderShell();
     const id = currentTab();
     const el = C.util.$("#view");
+    el.dataset.tab = id; // für Akzentfarbe des Reiters (CSS)
     const view = C.views[id];
     if (view) view.render(el);
     else el.innerHTML = `<p class="placeholder">${t("comingSoon")}</p>`;

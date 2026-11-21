@@ -18,8 +18,14 @@
     return `<svg class="bar" width="${width}" height="${height}" viewBox="0 0 ${width} ${height}" role="img" aria-label="${C.util.esc(label)}">${rects}</svg>`;
   }
 
-  // Ampel-Punkt mit Text (Farbe nie allein).
-  const light = (cls, text) => `<span class="light ${cls}"><i aria-hidden="true"></i>${C.util.esc(text)}</span>`;
+  // Ampel mit Form und Text (Farbe nie allein): grün = Kreis mit Haken, gelb = Ring, rot = Dreieck, grau = Strich.
+  const SHAPES = {
+    green: '<circle cx="7" cy="7" r="7"/><path class="tick" d="M3.8 7.3l2.2 2.2 4.2-4.6"/>',
+    yellow: '<circle cx="7" cy="7" r="5.5"/>',
+    red: '<path d="M7 .8l6.6 12.2H.4z"/>',
+    grey: '<rect x="1.5" y="5.8" width="11" height="2.4" rx="1.2"/>',
+  };
+  const light = (cls, text) => `<span class="light ${cls}"><svg class="shape" viewBox="0 0 14 14" aria-hidden="true">${SHAPES[cls] || SHAPES.grey}</svg>${C.util.esc(text)}</span>`;
 
   C.charts = { stackedBar, light };
 })();

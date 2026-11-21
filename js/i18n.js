@@ -9,7 +9,8 @@
   const DICT = {
     de: {
       appSubtitle: "Asylsozialdienst Stadt Bern",
-      privacy: "🔒 Die Daten bleiben auf diesem Computer: Die Dateien werden nur im Browser gelesen, nicht gespeichert und nicht übertragen. Beim Schliessen des Fensters sind sie weg.",
+      privacyBadge: "nur lokal verarbeitet",
+      privacy: "Die Daten bleiben auf diesem Computer: Die Dateien werden nur im Browser gelesen, nicht gespeichert und nicht übertragen. Beim Schliessen des Fensters sind sie weg.",
       "tab.daten": "Daten", "tab.ziel1": "Ziel 1 · Sprache", "tab.ziel2": "Ziel 2 · Arbeit", "tab.ziel3": "Ziel 3 · Sozialhilfe", "tab.cockpit": "Cockpit", "tab.muster": "Muster",
       loadTitle: "Exporte laden",
       dropMain: "Excel-Exporte hierher ziehen",
@@ -160,7 +161,8 @@
     },
     en: {
       appSubtitle: "Asylum Social Service, City of Bern",
-      privacy: "🔒 Data stays on this computer: files are only read in the browser, never stored or transmitted. Closing the window removes them.",
+      privacyBadge: "processed locally only",
+      privacy: "Data stays on this computer: files are only read in the browser, never stored or transmitted. Closing the window removes them.",
       "tab.daten": "Data", "tab.ziel1": "Goal 1 · Language", "tab.ziel2": "Goal 2 · Work", "tab.ziel3": "Goal 3 · Social assistance", "tab.cockpit": "Cockpit", "tab.muster": "Patterns",
       loadTitle: "Load exports",
       dropMain: "Drop Excel exports here",
