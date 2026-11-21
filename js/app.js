@@ -32,7 +32,7 @@
     priv.title = t("privacy");
     // Reiter: Klasse pro Reiter (Farbe der aktiven Linie), Punkt in Zielfarbe vor den Ziel-Reitern
     $("#tabs").innerHTML = TABS.map((id) =>
-      `<a href="#${id}" role="tab" aria-selected="${id === currentTab()}" class="tab-${id} ${id === currentTab() ? "on" : ""}">${/^ziel/.test(id) ? '<span class="tdot" aria-hidden="true"></span>' : ""}${t("tab." + id)}</a>`).join("");
+      `<a href="#${id}" role="tab" aria-selected="${id === currentTab()}" class="tab-${id} ${id === currentTab() ? "on" : ""}"><span class="tdot" aria-hidden="true"></span>${t("tab." + id)}</a>`).join("");
     document.querySelectorAll("#lang button").forEach((b) => b.setAttribute("aria-pressed", b.dataset.l === C.i18n.getLang()));
   }
 
